@@ -1,7 +1,6 @@
 from models import Board, Snake, Objects, Directions
 from keyboard import KBHit
 import time
-import os
 
 
 DIRECTION_MAP = {
@@ -21,7 +20,6 @@ board.place_apple()
 
 try:
     while True:
-        os.system("cls" if os.name == "nt" else "clear")
         print(board.render(snake))
         time.sleep(0.1)
 
@@ -36,6 +34,10 @@ try:
                 )
 
         snake.move(board)
+
+        # Move cursor to the top left corner of the board
+        print(f"\u001b[{board.height}A")
+        print(f"\u001b[{board.width}D")
 
 except BaseException as e:  # BaseException, to catch KeyboardInterrupt
     print("\033[?25h", end="")  # Show cursor again
