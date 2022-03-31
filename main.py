@@ -36,7 +36,7 @@ try:
         snake.move(board)
 
         # Move cursor to the top left corner of the board
-        print(f"\u001b[{board.height}A")
+        print(f"\u001b[{board.height - 2}A")
         print(f"\u001b[{board.width}D")
 
 except BaseException as e:  # BaseException, to catch KeyboardInterrupt
