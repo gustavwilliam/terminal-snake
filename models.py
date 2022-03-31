@@ -99,28 +99,18 @@ class Board:
                 rows.append(
                     f" SCORE: {snake.length}" if self.width >= 12 else str(snake.length)
                 )
-                rows.append("┏" + "━" * (self.board_width * 2 - 1))
+                rows.append("┏" + "━" * (self.board_width * 2))
+        else:
+            if self.render_settings.enclose_game == False:
+                rows.append("┏" + "━" * (self.board_width * 2))
 
         if self.render_settings.enclose_game:
             rows.append(self.render_settings.texture * self.width)
 
         for i, row in enumerate(self.board):
-            row_list = []
-
-            if self.render_settings.enclose_game:
-                row_list = [element for element in reversed(row)]
-            else:
-                inlcude_blanks = False
-                for element in reversed(row):
-                    if element == Objects.EMPTY and inlcude_blanks:
-                        row_list.append(element)
-                    elif element != Objects.EMPTY:
-                        row_list.append(element)
-                        inlcude_blanks = True
-
             board_row = "".join(
                 self.replace_head(x, (i, j), snake)
-                for j, x in enumerate(reversed(row_list))
+                for j, x in enumerate(row)
             )
             if self.render_settings.enclose_game:
                 rows.append(
