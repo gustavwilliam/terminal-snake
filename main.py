@@ -19,8 +19,11 @@ board.board[snake.position[0]][snake.position[1]] = Objects.SNAKE
 board.place_apple()
 
 try:
+    print(end='\033[H\033[m\033[2J', flush=True)  # Clear screen
+
     while True:
-        print(board.render(snake))
+        print('\033[H', end=board.render(snake), flush=True)
+
         time.sleep(0.1)
 
         if kb.kbhit():
@@ -35,11 +38,7 @@ try:
 
         snake.move(board)
 
-        # Move cursor to the top left corner of the board
-        print(f"\u001b[{board.height - 2}A")
-        print(f"\u001b[{board.width}D")
-
-except BaseException as e:  # BaseException, to catch KeyboardInterrupt
+finally:
     print("\033[?25h", end="")  # Show cursor again
     kb.set_normal_term()
-    raise e
+    print(flush=True)  # Send out newline
